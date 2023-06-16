@@ -32,6 +32,19 @@ public class EmploymentInductionDocument {
 	@JoinColumn(name = "emid_idty_id", referencedColumnName = "eofd_idty_id")
 	private EmploymentOfferDocument documentType;
 
+	@Column(name = "emid_document")
+	private byte[] documentData;
+
+	@Column(name = "emid_processed_ausr_id")
+	private int indcProcessedAusrId;
+
+	@ManyToOne
+	@JoinColumn(name = "emid_processed_ausr_id", referencedColumnName = "ausr_id")
+	private HrmsEmploymentOffer processedUser;
+
+	@Column(name = "emid_verified")
+	private String verified;
+
 	public int getDocumentIndex() {
 		return documentIndex;
 	}
@@ -72,12 +85,12 @@ public class EmploymentInductionDocument {
 		this.documentType = documentType;
 	}
 
-	public String getDocumentPath() {
-		return documentPath;
+	public byte[] getDocumentData() {
+		return documentData;
 	}
 
-	public void setDocumentPath(String documentPath) {
-		this.documentPath = documentPath;
+	public void setDocumentData(byte[] documentData) {
+		this.documentData = documentData;
 	}
 
 	public int getIndcProcessedAusrId() {
@@ -104,18 +117,4 @@ public class EmploymentInductionDocument {
 		this.verified = verified;
 	}
 
-	@Column(name = "emid_document")
-	private String documentPath;
-
-	@Column(name = "emid_processed_ausr_id")
-	private int indcProcessedAusrId;
-
-	@ManyToOne
-	@JoinColumn(name = "emid_processed_ausr_id", referencedColumnName = "ausr_id")
-	private HrmsEmploymentOffer processedUser;
-
-	@Column(name = "emid_verified")
-	private String verified;
-
-	// Constructors, getters, and setters
 }

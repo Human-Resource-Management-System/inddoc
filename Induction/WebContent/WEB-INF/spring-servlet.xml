@@ -31,6 +31,26 @@
         <property name="password" value="pff123" />
     </bean>
     
+       <!-- Configure the MultipartResolver bean -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="5242880" /> <!-- Set the maximum upload size (in bytes) -->
+    </bean>
+    
+    <mvc:annotation-driven>
+    <mvc:message-converters>
+        <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter">
+            <property name="supportedMediaTypes">
+                <list>
+                    <value>multipart/form-data</value>
+                </list>
+            </property>
+        </bean>
+    </mvc:message-converters>
+    <mvc:argument-resolvers>
+        <bean class="org.springframework.web.multipart.support.StandardServletMultipartResolver" />
+    </mvc:argument-resolvers>
+</mvc:annotation-driven>
+    
     <!-- EntityManager configuration -->
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
         p:persistenceUnitName="myPersistenceUnit"
@@ -54,8 +74,7 @@
     <!-- Define the HolidayDAO bean -->
     <bean id="idao" class="DAO.InductionDAOImpl" />
     <bean id="j" class="models.Induction" />
-   
-   
+     
     <!-- Enable transactional support for EntityManager -->
     <tx:annotation-driven transaction-manager="jpaTransactionManager" />
     
@@ -68,7 +87,5 @@
     <bean id="jpaTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory" />
     </bean>
-  
-    
-    
+
 </beans>
