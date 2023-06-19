@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import DAO.EmploymentInductionDocumentDAO;
 import models.EmploymentInductionDocument;
@@ -23,24 +22,8 @@ public class EmploymentInductionDocumentService {
 		this.docDAO = docDAO;
 	}
 
-	public void addEmploymentInductionDocument(EmploymentInductionDocument document, MultipartFile file) {
-		try {
-			byte[] fileData = file.getBytes();
-			document.setDocumentData(fileData);
-			docDAO.addEmploymentInductionDocument(document);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void saveEmploymentInductionDocument(EmploymentInductionDocument document, MultipartFile file) {
-		try {
-			byte[] fileData = file.getBytes();
-			document.setDocumentData(fileData);
-			docDAO.addEmploymentInductionDocument(document);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public void addEmploymentInductionDocument(EmploymentInductionDocument document) {
+		docDAO.addEmploymentInductionDocument(document);
 	}
 
 	public File getEmploymentInductionDocumentFile(int documentIndex) {

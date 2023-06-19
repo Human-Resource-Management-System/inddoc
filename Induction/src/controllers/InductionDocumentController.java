@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import models.EmploymentInductionDocument;
+import models.addinductionDOC;
 import service.EmploymentInductionDocumentService;
 
 @Controller
@@ -26,41 +26,33 @@ public class InductionDocumentController {
 	@Autowired
 	private EmploymentInductionDocumentService docServ;
 
-	@PostMapping("/documents/add")
-	public String addDocument(@ModelAttribute("document") EmploymentInductionDocument document,
-			@RequestParam("file") MultipartFile file) {
-		try {
-			// Set the file data in the document
-			document.setDocumentData(file.getBytes());
-			// Save the document using the service
-			docServ.addEmploymentInductionDocument(document, file);
-		} catch (IOException e) {
-			e.printStackTrace();
-			// Handle the exception as needed
-		}
-		return "redirect:/documents";
-	}
+	@Autowired
+	private EmploymentInductionDocument document;
 
-	@GetMapping("/documents")
-	public String getDocuments(Model model) {
-		// Retrieve all documents using the service
+	@GetMapping("/getform")
+	public String getform(Model model) {
 		model.addAttribute("documents", docServ.getAllDocuments());
-		return "documents";
+		return "InductionDocument";
 	}
 
-	@PostMapping("/documents/save")
-	public String saveDocument(@ModelAttribute("document") EmploymentInductionDocument document,
-			@RequestParam("file") MultipartFile file) {
+	@PostMapping("/add")
+	public String addDocument(@ModelAttribute("input") addinductionDOC input) {
 		try {
-			// Set the file data in the document
-			document.setDocumentData(file.getBytes());
-			// Save the document using the service
-			docServ.saveEmploymentInductionDocument(document, file);
+
+			document.setEmplid(input.getEmplid());
+			document.setEmploymentOffer(input.getEmploymentOffer());
+			document.setDocumentType(input.getDocumentType());
+			document.setProcessedUser(input.getProcessedUser());
+			document.setVerified(input.getVerified());
+
+			byte[] fileData = input.getDocumentData().getBytes();
+			document.setDocumentData(fileData);
+
+			docServ.addEmploymentInductionDocument(document);
 		} catch (IOException e) {
 			e.printStackTrace();
-			// Handle the exception as needed
 		}
-		return "redirect:/documents";
+		return "success";
 	}
 
 	@GetMapping("/documents/download")

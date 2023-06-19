@@ -50,7 +50,7 @@
     <div class="container">
         <h1>Create Induction</h1>
 
-        <form action="inductionsave" method="post">
+        <form action="/documents/add" method="post">
             <label for="inductionId">Induction ID:</label>
             <input type="text" id="inductionId" name="inductionId" required>
 

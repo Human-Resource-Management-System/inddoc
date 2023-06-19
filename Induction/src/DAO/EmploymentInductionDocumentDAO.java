@@ -1,6 +1,7 @@
 package DAO;
 
-import java.util.List;
+import java.util.ArrayList;
+
 
 import models.EmploymentInductionDocument;
 
@@ -10,7 +11,7 @@ public interface EmploymentInductionDocumentDAO {
 
 	EmploymentInductionDocument getEmploymentInductionDocument(int documentIndex);
 
-	List<EmploymentInductionDocument> getAllDocuments();
+	ArrayList<EmploymentInductionDocument> getAllDocuments();
 
 	// Other methods for updating and deleting EmploymentInductionDocuments can be added here
 }

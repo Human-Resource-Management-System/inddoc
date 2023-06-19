@@ -3,34 +3,33 @@ package models;
 import java.io.Serializable;
 
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Embeddable
+
 @Table(name = "hrms_employmentofferdocuments")
 public class EmploymentOfferDocument implements Serializable {
 
-	@EmbeddedId
-	@Column(name = "eofd_id")
+	@Id
+	@Column(name = "eofd_id", insertable = false, updatable = false)
 	private int offerid;
 
 	@Column(name = "eofd_docindex")
 	private int documentIndex;
 
-	@Column(name = "eofd_idty_id")
+	@Column(name = "eofd_idty_id", insertable = false, updatable = false)
 	private int offeridentity;
 
 	@ManyToOne
-	@JoinColumn(name = "eofd_id", referencedColumnName = "eofr_cand_id")
+	@JoinColumn(name = "eofd_id", referencedColumnName = "eofr_cand_id", insertable = false, updatable = false)
 	private HrmsEmploymentOffer employmentOffer;
 
 	@ManyToOne
-	@JoinColumn(name = "eofd_idty_id", referencedColumnName = "idty_id")
+	@JoinColumn(name = "eofd_idty_id", referencedColumnName = "idty_id", insertable = false, updatable = false)
 	private InductionDocumentTypes documentType;
 
 	public int getOfferid() {

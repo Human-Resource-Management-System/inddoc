@@ -18,32 +18,46 @@ public class EmploymentInductionDocument {
 	@Column(name = "emid_docindex")
 	private int documentIndex;
 
-	@Column(name = "empl_id")
+	@Column(name = "empl_id", insertable = false, updatable = false)
 	private int emplid;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "empl_id", referencedColumnName = "eofr_cand_id", insertable = false, updatable = false)
 	private HrmsEmploymentOffer employmentOffer;
 
-	@Column(name = "emid_idty_id")
+	@Column(name = "emid_idty_id", insertable = false, updatable = false)
 	private int emplidty;
 
 	@ManyToOne
-	@JoinColumn(name = "emid_idty_id", referencedColumnName = "eofd_idty_id")
+	@JoinColumn(name = "emid_idty_id", referencedColumnName = "eofd_idty_id", insertable = false, updatable = false)
 	private EmploymentOfferDocument documentType;
 
 	@Column(name = "emid_document")
 	private byte[] documentData;
 
-	@Column(name = "emid_processed_ausr_id")
+	@Column(name = "emid_processed_ausr_id", insertable = false, updatable = false)
 	private int indcProcessedAusrId;
 
 	@ManyToOne
-	@JoinColumn(name = "emid_processed_ausr_id", referencedColumnName = "ausr_id")
-	private HrmsEmploymentOffer processedUser;
+	@JoinColumn(name = "emid_processed_ausr_id", referencedColumnName = "ausr_id", insertable = false, updatable = false)
+	private adminusers processedUser;
 
 	@Column(name = "emid_verified")
 	private String verified;
+
+	// Parameterized Constructor
+	public EmploymentInductionDocument(int emplid, int emplidty, byte[] documentData, int indcProcessedAusrId,
+			String verified) {
+		this.emplid = emplid;
+		this.emplidty = emplidty;
+		this.documentData = documentData;
+		this.indcProcessedAusrId = indcProcessedAusrId;
+		this.verified = verified;
+	}
+
+	// Default Constructor
+	public EmploymentInductionDocument() {
+	}
 
 	public int getDocumentIndex() {
 		return documentIndex;
@@ -101,11 +115,11 @@ public class EmploymentInductionDocument {
 		this.indcProcessedAusrId = indcProcessedAusrId;
 	}
 
-	public HrmsEmploymentOffer getProcessedUser() {
+	public adminusers getProcessedUser() {
 		return processedUser;
 	}
 
-	public void setProcessedUser(HrmsEmploymentOffer processedUser) {
+	public void setProcessedUser(adminusers processedUser) {
 		this.processedUser = processedUser;
 	}
 
