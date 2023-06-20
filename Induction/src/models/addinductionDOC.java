@@ -3,21 +3,23 @@ package models;
 import org.springframework.web.multipart.MultipartFile;
 
 public class addinductionDOC {
-	private int emplid;
 	private int employmentOfferId;
 	private int documentTypeId;
 	private MultipartFile documentData;
 	private int processedUserId;
 	private String verified;
 
-	// Getters and setters
-
-	public int getEmplid() {
-		return emplid;
+	public addinductionDOC() {
+		// Default constructor
 	}
 
-	public void setEmplid(int emplid) {
-		this.emplid = emplid;
+	public addinductionDOC(int employmentOfferId, int documentTypeId, MultipartFile documentData, int processedUserId,
+			String verified) {
+		this.employmentOfferId = employmentOfferId;
+		this.documentTypeId = documentTypeId;
+		this.documentData = documentData;
+		this.processedUserId = processedUserId;
+		this.verified = verified;
 	}
 
 	public int getEmploymentOfferId() {
@@ -60,18 +62,4 @@ public class addinductionDOC {
 		this.verified = verified;
 	}
 
-	public EmploymentOfferDocument getDocumentType() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public adminusers getProcessedUser() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public HrmsEmploymentOffer getEmploymentOffer() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

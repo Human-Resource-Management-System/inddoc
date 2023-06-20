@@ -2,12 +2,9 @@ package models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,28 +16,16 @@ public class EmploymentInductionDocument {
 	private int documentIndex;
 
 	@Column(name = "empl_id", insertable = false, updatable = false)
-	private int emplid;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "empl_id", referencedColumnName = "eofr_cand_id", insertable = false, updatable = false)
-	private HrmsEmploymentOffer employmentOffer;
+	private int emplid;// employe offer id
 
 	@Column(name = "emid_idty_id", insertable = false, updatable = false)
-	private int emplidty;
-
-	@ManyToOne
-	@JoinColumn(name = "emid_idty_id", referencedColumnName = "eofd_idty_id", insertable = false, updatable = false)
-	private EmploymentOfferDocument documentType;
+	private int emplidty;// employee offer document type
 
 	@Column(name = "emid_document")
 	private byte[] documentData;
 
 	@Column(name = "emid_processed_ausr_id", insertable = false, updatable = false)
 	private int indcProcessedAusrId;
-
-	@ManyToOne
-	@JoinColumn(name = "emid_processed_ausr_id", referencedColumnName = "ausr_id", insertable = false, updatable = false)
-	private adminusers processedUser;
 
 	@Column(name = "emid_verified")
 	private String verified;
@@ -75,28 +60,12 @@ public class EmploymentInductionDocument {
 		this.emplid = emplid;
 	}
 
-	public HrmsEmploymentOffer getEmploymentOffer() {
-		return employmentOffer;
-	}
-
-	public void setEmploymentOffer(HrmsEmploymentOffer employmentOffer) {
-		this.employmentOffer = employmentOffer;
-	}
-
 	public int getEmplidty() {
 		return emplidty;
 	}
 
 	public void setEmplidty(int emplidty) {
 		this.emplidty = emplidty;
-	}
-
-	public EmploymentOfferDocument getDocumentType() {
-		return documentType;
-	}
-
-	public void setDocumentType(EmploymentOfferDocument documentType) {
-		this.documentType = documentType;
 	}
 
 	public byte[] getDocumentData() {
@@ -113,14 +82,6 @@ public class EmploymentInductionDocument {
 
 	public void setIndcProcessedAusrId(int indcProcessedAusrId) {
 		this.indcProcessedAusrId = indcProcessedAusrId;
-	}
-
-	public adminusers getProcessedUser() {
-		return processedUser;
-	}
-
-	public void setProcessedUser(adminusers processedUser) {
-		this.processedUser = processedUser;
 	}
 
 	public String getVerified() {

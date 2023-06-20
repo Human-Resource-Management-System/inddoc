@@ -4,26 +4,26 @@ package DAO;
 import java.util.ArrayList;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import models.EmploymentInductionDocument;
 
 @Component
 public class EmploymentInductionDocDAOImpl implements EmploymentInductionDocumentDAO {
 
-	private EntityManagerFactory entityManagerFactory;
-
 	@PersistenceContext
 	private EntityManager entityManager;
 
+	@Transactional
 	public void addEmploymentInductionDocument(EmploymentInductionDocument document) {
 		entityManager.persist(document);
 	}
 
+	@Transactional
 	public EmploymentInductionDocument getEmploymentInductionDocument(int documentIndex) {
 		return entityManager.find(EmploymentInductionDocument.class, documentIndex);
 	}

@@ -104,9 +104,6 @@
     <div id="addDocumentForm" class="add-document-form">
         <h2>Add Document</h2>
         <form action="add" method="post" enctype="multipart/form-data">
-        
-         <label for="emplid">Employment ID:</label>
-            <input type="text" id="emplid" name="emplid" required><br>
 
             <label for="employmentOffer">Employment Offer ID:</label>
             <input type="text" id="employmentOffer" name="employmentOffer" required><br>

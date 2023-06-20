@@ -1,3 +1,4 @@
+
 package controllers;
 
 import java.io.File;
@@ -38,13 +39,10 @@ public class InductionDocumentController {
 	@PostMapping("/add")
 	public String addDocument(@ModelAttribute("input") addinductionDOC input) {
 		try {
-
-			document.setEmplid(input.getEmplid());
-			document.setEmploymentOffer(input.getEmploymentOffer());
-			document.setDocumentType(input.getDocumentType());
-			document.setProcessedUser(input.getProcessedUser());
+			document.setEmplid(input.getEmploymentOfferId());// employee offer id
+			document.setEmplidty(input.getDocumentTypeId());// employee offer document type setting
+			document.setIndcProcessedAusrId(input.getProcessedUserId());
 			document.setVerified(input.getVerified());
-
 			byte[] fileData = input.getDocumentData().getBytes();
 			document.setDocumentData(fileData);
 

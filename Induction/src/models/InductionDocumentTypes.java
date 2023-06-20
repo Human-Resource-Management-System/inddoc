@@ -24,5 +24,37 @@ public class InductionDocumentTypes {
 	@Column(name = "idty_desc")
 	private String description;
 
+	public int getDocumentTypeId() {
+		return documentTypeId;
+	}
+
+	public void setDocumentTypeId(int documentTypeId) {
+		this.documentTypeId = documentTypeId;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	// Constructors, getters, and setters
 }
