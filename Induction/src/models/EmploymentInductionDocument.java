@@ -2,9 +2,12 @@ package models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,23 +18,35 @@ public class EmploymentInductionDocument {
 	@Column(name = "emid_docindex")
 	private int documentIndex;
 
-	@Column(name = "empl_id", insertable = false, updatable = false)
-	private int emplid;// employe offer id
+	@Column(name = "empl_id") // , insertable = false, updatable = false)
+	private int emplid;
 
-	@Column(name = "emid_idty_id", insertable = false, updatable = false)
-	private int emplidty;// employee offer document type
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "empl_id", referencedColumnName = "eofr_cand_id", insertable = false, updatable = false)
+	private HrmsEmploymentOffer employmentOffer;
+
+	@Column(name = "emid_idty_id") // , insertable = false, updatable = false)
+	private int emplidty;
+
+	@ManyToOne
+	@JoinColumn(name = "emid_idty_id", referencedColumnName = "eofd_idty_id", insertable = false, updatable = false)
+	private EmploymentOfferDocument documentType;
 
 	@Column(name = "emid_document")
-	private byte[] documentData;
+	private String documentData;
 
-	@Column(name = "emid_processed_ausr_id", insertable = false, updatable = false)
+	@Column(name = "emid_processed_ausr_id") // , insertable = false, updatable = false)
 	private int indcProcessedAusrId;
+
+	@ManyToOne
+	@JoinColumn(name = "emid_processed_ausr_id", referencedColumnName = "ausr_empl_id", insertable = false, updatable = false)
+	private adminusers processedUser;
 
 	@Column(name = "emid_verified")
 	private String verified;
 
 	// Parameterized Constructor
-	public EmploymentInductionDocument(int emplid, int emplidty, byte[] documentData, int indcProcessedAusrId,
+	public EmploymentInductionDocument(int emplid, int emplidty, String documentData, int indcProcessedAusrId,
 			String verified) {
 		this.emplid = emplid;
 		this.emplidty = emplidty;
@@ -68,11 +83,11 @@ public class EmploymentInductionDocument {
 		this.emplidty = emplidty;
 	}
 
-	public byte[] getDocumentData() {
+	public String getDocumentData() {
 		return documentData;
 	}
 
-	public void setDocumentData(byte[] documentData) {
+	public void setDocumentData(String documentData) {
 		this.documentData = documentData;
 	}
 
@@ -92,4 +107,27 @@ public class EmploymentInductionDocument {
 		this.verified = verified;
 	}
 
+	public HrmsEmploymentOffer getEmploymentOffer() {
+		return employmentOffer;
+	}
+
+	public void setEmploymentOffer(HrmsEmploymentOffer employmentOffer) {
+		this.employmentOffer = employmentOffer;
+	}
+
+	public EmploymentOfferDocument getDocumentType() {
+		return documentType;
+	}
+
+	public void setDocumentType(EmploymentOfferDocument documentType) {
+		this.documentType = documentType;
+	}
+
+	public adminusers getProcessedUser() {
+		return processedUser;
+	}
+
+	public void setProcessedUser(adminusers processedUser) {
+		this.processedUser = processedUser;
+	}
 }

@@ -1,11 +1,11 @@
 package models;
 
-import org.springframework.web.multipart.MultipartFile;
+import java.io.File;
 
 public class addinductionDOC {
 	private int employmentOfferId;
 	private int documentTypeId;
-	private MultipartFile documentData;
+	private File documentData;
 	private int processedUserId;
 	private String verified;
 
@@ -13,7 +13,7 @@ public class addinductionDOC {
 		// Default constructor
 	}
 
-	public addinductionDOC(int employmentOfferId, int documentTypeId, MultipartFile documentData, int processedUserId,
+	public addinductionDOC(int employmentOfferId, int documentTypeId, File documentData, int processedUserId,
 			String verified) {
 		this.employmentOfferId = employmentOfferId;
 		this.documentTypeId = documentTypeId;
@@ -38,11 +38,11 @@ public class addinductionDOC {
 		this.documentTypeId = documentTypeId;
 	}
 
-	public MultipartFile getDocumentData() {
+	public File getDocumentData() {
 		return documentData;
 	}
 
-	public void setDocumentData(MultipartFile documentData) {
+	public void setDocumentData(File documentData) {
 		this.documentData = documentData;
 	}
 

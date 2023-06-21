@@ -1,12 +1,15 @@
 package models;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -23,6 +26,8 @@ public class EmploymentOfferDocument implements Serializable {
 
 	@Column(name = "eofd_idty_id", insertable = false, updatable = false)
 	private int offeridentity;
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<EmploymentInductionDocument> employmentInductionDocument;
 
 	@ManyToOne
 	@JoinColumn(name = "eofd_id", referencedColumnName = "eofr_cand_id", insertable = false, updatable = false)
@@ -72,14 +77,4 @@ public class EmploymentOfferDocument implements Serializable {
 		this.documentType = documentType;
 	}
 
-	// Constructors, getters, and setters
-	/**
-	 * // Override equals() and hashCode() methods
-	 * 
-	 * @Override public boolean equals(Object o) { if (this == o) { return true; } if (o == null || getClass() !=
-	 *           o.getClass()) { return false; } EmploymentOfferDocument that = (EmploymentOfferDocument) o; return
-	 *           Objects.equals(id, that.id); }
-	 * 
-	 * @Override public int hashCode() { return Objects.hash(id); }
-	 **/
 }
