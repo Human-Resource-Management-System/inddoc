@@ -112,7 +112,7 @@
             <label for="verified">Verified:</label>
             <input type="text" id="verified" name="verified" required><br>
 
-            <button type="submit">Add Document</button>
+            <button type="submit">Insert</button>
         </form>
     </div>
 </body>

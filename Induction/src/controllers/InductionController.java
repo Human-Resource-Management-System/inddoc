@@ -1,3 +1,4 @@
+
 package controllers;
 
 import java.text.ParseException;
@@ -9,80 +10,112 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import DAO.InductionDAO;
+import models.EmploymentInductionDocument;
+import models.EmploymentInductionDocumentViewModel;
 import models.Induction;
+import models.SaveInductioninput;
+import models.addinductionDOC;
+import service.EmploymentInductionDocumentServiceInterface;
+import service.EmploymentInductionServiceInterface;
 
 @Controller
 public class InductionController {
 
-	private final InductionDAO ind;
-	private final Induction i;
+	@Autowired
+	private EmploymentInductionDocumentServiceInterface docServ; // injecting service class object
 
 	@Autowired
-	public InductionController(InductionDAO idao, Induction j) {
-		ind = idao;
-		i = j;
-	}
+	private EmploymentInductionServiceInterface indServ; // injecting service class object
 
-	@RequestMapping("/inductionlist")
+	@Autowired
+	private EmploymentInductionDocument document; // injecting Document Entity Model class object
+
+	@Autowired
+	private InductionDAO idao;// injecting DAO class object
+
+	@Autowired
+	private Induction induction;// injecting induction class object
+
+	@RequestMapping("/inductionlist") // view the list of inductions conducted
 	public String showEmployees(Model model) {
-		List<Integer> inductions = ind.getAllInductions();
+		List<Integer> inductions = idao.getAllInductions();
 		model.addAttribute("inductions", inductions);
 		return "inductions";
 	}
 
-	@RequestMapping("/get-induction-details")
+	@RequestMapping("/get-induction-details") // shows the data regarding selected induction
 	public String getEmployeeDetails(@RequestParam("id") int indid, Model model) {
-		List<Induction> i = ind.getInductionById(indid);
+		System.out.println(indid);
+		List<Induction> i = idao.getInductionById(indid);
 		model.addAttribute("indid", i);
 		model.addAttribute("ID", indid);
 		return "inductiondetails";
 	}
 
-	@RequestMapping(value = "/inductioninsert", method = RequestMethod.GET)
+	@RequestMapping(value = "/inductioninsert", method = RequestMethod.GET) // to insert into induction
 	public String createInduction(Model model) {
-		List<Integer> hd = ind.getAllEmploymentOffers();
+		List<Integer> hd = idao.getAllEmploymentOffers();
 		model.addAttribute("employmentOffers", hd);
 		return "createInduction";
 	}
 
-	@RequestMapping(value = "/inductionsave", method = RequestMethod.POST)
-	public String saveInduction(@RequestParam("inductionId") int inductionId,
-			@RequestParam("employeeOffers") List<Integer> employeeOffers,
-			@RequestParam("inductionDate") String inductionDate, @RequestParam("authorizedId") int authorizedId,
-			@RequestParam("status") String status, Model model) {
-		// Perform any necessary data processing or validations
-
-		// Create the Induction objects
-		List<Induction> inductions = new ArrayList<>();
+	@RequestMapping(value = "/inductionsave", method = RequestMethod.POST) // for saving the induction
+	public String saveInduction(@ModelAttribute SaveInductioninput request, Model model) {
+		// Map the properties from the input model to the entity model
+		List<Induction> inductions = new ArrayList<>(); // Create the Induction objects
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-		for (Integer indcEmofId : employeeOffers) {
-			Induction induction = new Induction();
-			induction.setIndcId(inductionId);
-			induction.setIndcEmofId(indcEmofId);
-
-			try {
-				Date date = (Date) dateFormat.parse(inductionDate);
-				induction.setIndcDate(new java.sql.Date(date.getTime()));
-			} catch (ParseException e) {
-				// Handle the parse exception appropriately
+		for (Integer indcEmofId : request.getIndcEmofId()) {
+			if (request.getIndcId().equals("same")) {
+				induction.setIndcId(indServ.getid());
+			} else {
+				induction.setIndcId(indServ.getidNext());
 			}
+			induction.setIndcEmofId(indcEmofId);
+			induction.setIndcProcessedAusrId(request.getIndcProcessedAusrId());
+			induction.setIndcStatus(request.getIndcStatus());
+			try {
+				Date date = dateFormat.parse(request.getIndcDate());
+				induction.setIndcDate(new java.sql.Date(date.getTime()));
 
-			induction.setIndcProcessedAusrId(authorizedId);
-			induction.setIndcStatus(status);
-
+			} catch (ParseException e) {
+				System.out.println("Causing Error");
+			}
 			inductions.add(induction);
-			ind.insertEmployee(induction);
-			ind.updateEmploymentOfferStatus(indcEmofId, "INDC");
-
+			idao.insertEmployee(induction);//
+			idao.updateEmploymentOfferStatus(indcEmofId, "INDC");
 		}
-
+		List<Integer> induc = idao.getAllInductions();
+		model.addAttribute("inductions", induc);
 		return "inductions";
 	}
 
+	@GetMapping("/getform") // previews the form to fill and upload document
+	public String getform(Model model) {
+		List<EmploymentInductionDocumentViewModel> doc = docServ.getAllDocuments();
+		System.out.println(doc);
+		model.addAttribute("doc", doc);
+		return "InductionDocument";
+	}
+
+	@GetMapping("/add") // to save the induction documents
+	public String addDocument(@ModelAttribute addinductionDOC input) {
+		document.setEmplid(input.getEmploymentOfferId());// employee offer id
+		System.out.println(input.getEmploymentOfferId());
+		document.setEmplidty(input.getDocumentTypeId());// employee offer document type setting
+		document.setIndcProcessedAusrId(input.getProcessedUserId());
+		document.setVerified(input.getVerified());
+		String path = input.getDocumentData().getAbsolutePath();
+		System.out.println("-----------------------" + path);
+		document.setDocumentData(path);
+		docServ.addEmploymentInductionDocument(document);
+		return "success";
+	}
 }

@@ -50,12 +50,15 @@
     <div class="container">
         <h1>Create Induction</h1>
 
-        <form action="/documents/add" method="post">
-            <label for="inductionId">Induction ID:</label>
-            <input type="text" id="inductionId" name="inductionId" required>
+        <form action="inductionsave" method="post">
+			<label for="IndcId">Induction ID:</label>
+        <select id="IndcId" name="IndcId" required>
+    <option value="same">Same</option>
+    <option value="next">Next</option>
+</select>
 
-            <label for="employeeOffers">Employee Offers:</label>
-          <select id="employeeOffers" name="employeeOffers" multiple required>
+            <label for="IndcEmofId">Employee Offers:</label>
+          <select id="IndcEmofId" name="IndcEmofId" multiple required>
                 <% List<Integer> employmentOffers = (List<Integer>) request.getAttribute("employmentOffers"); %>
                 <% if (employmentOffers != null && !employmentOffers.isEmpty()) { %>
                     <% for (Integer offer : employmentOffers) { %>
@@ -73,18 +76,25 @@
 
                 // Format the current date as a string
                 String formattedDate = dateFormat.format(currentDate);
+                
+                int user = 123;
             %>
-            <label for="inductionDate">Induction Date:</label>
-            <input type="text" id="inductionDate" name="inductionDate" value="<%= formattedDate %>" readonly>
+          <label for="inductionDate">Induction Date:</label>
+			<input type="text" id="inductionDate" name="IndcDate" value="<%= formattedDate %>" readonly>
+
 
             <label for="authorizedId">Authorized ID:</label>
-            <input type="text" id="authorizedId" name="authorizedId" required>
+			<input type="text" id="authorizedId" name="IndcProcessedAusrId" value="<%= user %>" required>
 
-            <label for="status">Status:</label>
-            <input type="text" id="status" name="status" required>
-
+            <label for="IndcStatus">Status:</label>
+              <select id="IndcStatus" name="IndcStatus" required>
+   			 <option value="PCMP">PCMP</option>
+    	    <option value="SUPD">SUPD</option>
+   			 <option value="CMPD">CMPD</option>
+</select>
             <input type="submit" value="Save">
         </form>
     </div>
+   
 </body>
 </html>

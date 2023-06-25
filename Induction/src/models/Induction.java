@@ -53,6 +53,13 @@ public class Induction {
 		this.indcEmofId = indcEmofId;
 	}
 
+	@Override
+	public String toString() {
+		return "Induction [indcId=" + indcId + ", indcEmofId=" + indcEmofId + ", indcDate=" + indcDate
+				+ ", indcProcessedAusrId=" + indcProcessedAusrId + ", indcStatus=" + indcStatus + ", employmentOffer="
+				+ employmentOffer + ", adminUser=" + adminUser + "]";
+	}
+
 	public Date getIndcDate() {
 		return indcDate;
 	}
