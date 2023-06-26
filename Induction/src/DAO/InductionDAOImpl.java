@@ -29,7 +29,6 @@ public class InductionDAOImpl implements InductionDAO {
 	public List<Induction> getInductionById(int id) {
 		Query query = entityManager.createQuery("SELECT i FROM Induction i WHERE i.id = :id");
 		query.setParameter("id", id);
-
 		return (List<Induction>) query.getResultList();
 	}
 
@@ -37,7 +36,6 @@ public class InductionDAOImpl implements InductionDAO {
 	@Transactional
 	public void insertEmployee(Induction induction) {
 		entityManager.persist(induction);
-
 	}
 
 	@Override

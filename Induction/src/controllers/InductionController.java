@@ -62,6 +62,7 @@ public class InductionController {
 	@RequestMapping(value = "/inductioninsert", method = RequestMethod.GET) // to insert into induction
 	public String createInduction(Model model) {
 		List<Integer> hd = idao.getAllEmploymentOffers();
+		System.out.println(hd);
 		model.addAttribute("employmentOffers", hd);
 		return "createInduction";
 	}
