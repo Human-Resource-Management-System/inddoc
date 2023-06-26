@@ -7,7 +7,7 @@ import models.Induction;
 public interface InductionDAO {
 	List<Integer> getAllInductions();
 
-	public List<Induction> getInductionById(int id);
+	public List<Induction> getInductionById(Integer id);
 
 	public void insertEmployee(Induction induction);
 

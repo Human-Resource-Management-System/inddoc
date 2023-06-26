@@ -6,25 +6,28 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "hrms_induction")
+@IdClass(InductionId.class)
 public class Induction {
 	@Id
 	@Column(name = "indc_id")
-	private int indcId;
+	private Integer indcId;
 
+	@Id
 	@Column(name = "indc_emof_id")
 	private int indcEmofId;
 
 	@Column(name = "indc_date")
 	private Date indcDate;
 
-	@Column(name = "indc_processes_ausr_id")
-	private int indcProcessedAusrId;
+	@Column(name = "indc_processes_ausr_id", nullable = true)
+	private Integer indcProcessedAusrId;
 
 	@Column(name = "indc_status")
 	private String indcStatus;
@@ -37,11 +40,11 @@ public class Induction {
 	@JoinColumn(name = "indc_processes_ausr_id", referencedColumnName = "ausr_empl_id", insertable = false, updatable = false)
 	private HrmsAdminUser adminUser;
 
-	public int getIndcId() {
+	public Integer getIndcId() {
 		return indcId;
 	}
 
-	public void setIndcId(int indcId) {
+	public void setIndcId(Integer indcId) {
 		this.indcId = indcId;
 	}
 
@@ -68,11 +71,11 @@ public class Induction {
 		this.indcDate = indcDate;
 	}
 
-	public int getIndcProcessedAusrId() {
+	public Integer getIndcProcessedAusrId() {
 		return indcProcessedAusrId;
 	}
 
-	public void setIndcProcessedAusrId(int indcProcessedAusrId) {
+	public void setIndcProcessedAusrId(Integer indcProcessedAusrId) {
 		this.indcProcessedAusrId = indcProcessedAusrId;
 	}
 

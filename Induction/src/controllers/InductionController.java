@@ -51,9 +51,15 @@ public class InductionController {
 	}
 
 	@RequestMapping("/get-induction-details") // shows the data regarding selected induction
-	public String getEmployeeDetails(@RequestParam("id") int indid, Model model) {
+	public String getEmployeeDetails(@RequestParam("id") Integer indid, Model model) {
 		System.out.println(indid);
 		List<Induction> i = idao.getInductionById(indid);
+		for (Induction ind : i) {
+			System.out.println(ind.getIndcEmofId());
+			System.out.println(ind.getIndcDate());
+			System.out.println(ind.getIndcProcessedAusrId());
+			System.out.println(ind.getIndcStatus());
+		}
 		model.addAttribute("indid", i);
 		model.addAttribute("ID", indid);
 		return "inductiondetails";

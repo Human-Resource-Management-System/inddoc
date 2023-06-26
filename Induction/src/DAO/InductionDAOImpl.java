@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,10 +26,14 @@ public class InductionDAOImpl implements InductionDAO {
 
 	@Override
 	@Transactional
-	public List<Induction> getInductionById(int id) {
-		Query query = entityManager.createQuery("SELECT i FROM Induction i WHERE i.id = :id");
-		query.setParameter("id", id);
-		return (List<Induction>) query.getResultList();
+	public List<Induction> getInductionById(Integer id) {
+		TypedQuery<Induction> parameterQuery = entityManager
+				.createQuery("SELECT i FROM Induction i WHERE i.indcId = :id", Induction.class);
+		parameterQuery.setParameter("id", id);
+
+		// Query query = entityManager.createQuery("SELECT i FROM Induction i WHERE i.indcId = :id");
+		// query.setParameter("id", id);
+		return parameterQuery.getResultList();
 	}
 
 	@Override
