@@ -8,7 +8,5 @@ import models.EmploymentInductionDocumentViewModel;
 public interface EmploymentInductionDocumentServiceInterface {
 	public void addEmploymentInductionDocument(EmploymentInductionDocument document);
 
-	public String getEmploymentInductionDocumentFile(int documentIndex);
-
 	public List<EmploymentInductionDocumentViewModel> getAllDocuments();
 }

@@ -2,16 +2,13 @@ package models;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -29,8 +26,6 @@ public class HrmsEmploymentOffer implements Serializable {
 
 	@Column(name = "eofr_cand_id", unique = true)
 	private int candidateId;
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<EmploymentInductionDocument> employmentInductionDocument;
 
 	@Column(name = "eofr_offerdate")
 	private Date offerDate;
@@ -133,8 +128,5 @@ public class HrmsEmploymentOffer implements Serializable {
 	public void setCandidate(Candidate candidate) {
 		this.candidate = candidate;
 	}
-
-	// Constructors, getters, and setters
-	// ...
 
 }

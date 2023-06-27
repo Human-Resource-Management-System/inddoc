@@ -51,8 +51,6 @@ public class Candidate {
 	@Column(name = "cand_status")
 	private String candStatus;
 
-	// Getters and setters
-
 	public Integer getCandId() {
 		return candId;
 	}

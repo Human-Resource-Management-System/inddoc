@@ -15,19 +15,11 @@ public class EmploymentInductionDocumentService implements EmploymentInductionDo
 	private EmploymentInductionDocumentDAO docDAO;
 
 	public void addEmploymentInductionDocument(EmploymentInductionDocument document) {
-		docDAO.addEmploymentInductionDocument(document);
-	}
-
-	public String getEmploymentInductionDocumentFile(int documentIndex) {
-		EmploymentInductionDocument document = docDAO.getEmploymentInductionDocument(documentIndex);
-
-		String fileData = document.getDocumentData();
-
-		return fileData;
+		docDAO.addEmploymentInductionDocument(document);// moves to the DAO class to add the documents
 	}
 
 	public List<EmploymentInductionDocumentViewModel> getAllDocuments() {
-		return docDAO.getAllDocuments();
+		return docDAO.getAllDocuments();// to get the document list
 	}
 
 }

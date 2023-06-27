@@ -20,18 +20,16 @@ public class EmploymentInductionDocDAOImpl implements EmploymentInductionDocumen
 	@PersistenceContext
 	private EntityManager entityManager;
 
+	@Override
 	@Transactional
 	public void addEmploymentInductionDocument(EmploymentInductionDocument document) {
+		// to add Documents submitted at induction into the EmploymentInductionDocument table
 		entityManager.persist(document);
-	}
-
-	@Transactional
-	public EmploymentInductionDocument getEmploymentInductionDocument(int documentIndex) {
-		return entityManager.find(EmploymentInductionDocument.class, documentIndex);
 	}
 
 	@Override
 	public List<EmploymentInductionDocumentViewModel> getAllDocuments() {
+		// to get all the Documents submitted at induction from the EmploymentInductionDocument table
 		String queryString = "SELECT e.emplid, e.emplidty, e.documentData, e.verified FROM EmploymentInductionDocument e WHERE e.emplid IS NOT NULL AND e.emplidty IS NOT NULL AND e.documentData IS NOT NULL AND e.verified IS NOT NULL";
 		Query query = entityManager.createQuery(queryString);
 		// return (List<EmploymentInductionDocumentViewModel>) query.getResultList();

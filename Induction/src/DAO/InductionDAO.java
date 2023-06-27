@@ -15,6 +15,6 @@ public interface InductionDAO {
 
 	void updateEmploymentOfferStatus(int offerId, String status);
 
-	int getIndex();
+	Integer getIndex();
 
 }

@@ -2,8 +2,8 @@ package service;
 
 public interface EmploymentInductionServiceInterface {
 
-	int getidNext();
+	Integer getidNext();
 
-	int getid();
+	Integer getid();
 
 }

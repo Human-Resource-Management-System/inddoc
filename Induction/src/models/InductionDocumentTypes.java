@@ -1,19 +1,25 @@
 package models;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "hrms_insuctiondocumenttypes")
+@Table(name = "hrms_inductiondocumenttypes")
 public class InductionDocumentTypes {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idty_id")
 	private int documentTypeId;
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<EmploymentInductionDocument> employmentInductionDocument;
 
 	@Column(name = "idty_code")
 	private String code;
@@ -56,5 +62,4 @@ public class InductionDocumentTypes {
 		this.description = description;
 	}
 
-	// Constructors, getters, and setters
 }

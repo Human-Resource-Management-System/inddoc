@@ -38,7 +38,7 @@ public class Induction {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "indc_processes_ausr_id", referencedColumnName = "ausr_empl_id", insertable = false, updatable = false)
-	private HrmsAdminUser adminUser;
+	private adminusers adminUser;
 
 	public Integer getIndcId() {
 		return indcId;
@@ -95,15 +95,12 @@ public class Induction {
 		this.employmentOffer = employmentOffer;
 	}
 
-	public HrmsAdminUser getAdminUser() {
+	public adminusers getAdminUser() {
 		return adminUser;
 	}
 
-	public void setAdminUser(HrmsAdminUser adminUser) {
+	public void setAdminUser(adminusers adminUser) {
 		this.adminUser = adminUser;
 	}
-
-	// Constructors, getters, and setters
-	// ...
 
 }

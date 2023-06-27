@@ -1,33 +1,29 @@
 package models;
 
-import java.io.Serializable;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-
 @Table(name = "hrms_employmentofferdocuments")
-public class EmploymentOfferDocument implements Serializable {
+public class EmploymentOfferDocument {
 
-	@Id
-	@Column(name = "eofd_id", insertable = false, updatable = false)
-	private int offerid;
+	@EmbeddedId
+	private EmploymentOfferdocComposite empoff;
 
-	@Column(name = "eofd_docindex")
-	private int documentIndex;
+	public EmploymentOfferdocComposite getEmpoff() {
+		return empoff;
+	}
 
-	@Column(name = "eofd_idty_id", insertable = false, updatable = false)
+	public void setEmpoff(EmploymentOfferdocComposite empoff) {
+		this.empoff = empoff;
+	}
+
+	@Column(name = "eofd_idty_id")
 	private int offeridentity;
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<EmploymentInductionDocument> employmentInductionDocument;
 
 	@ManyToOne
 	@JoinColumn(name = "eofd_id", referencedColumnName = "eofr_cand_id", insertable = false, updatable = false)
@@ -37,20 +33,9 @@ public class EmploymentOfferDocument implements Serializable {
 	@JoinColumn(name = "eofd_idty_id", referencedColumnName = "idty_id", insertable = false, updatable = false)
 	private InductionDocumentTypes documentType;
 
-	public int getOfferid() {
-		return offerid;
-	}
-
-	public void setOfferid(int offerid) {
-		this.offerid = offerid;
-	}
-
-	public int getDocumentIndex() {
-		return documentIndex;
-	}
-
-	public void setDocumentIndex(int documentIndex) {
-		this.documentIndex = documentIndex;
+	public EmploymentOfferDocument(EmploymentOfferdocComposite comp, int idtyId) {
+		this.offeridentity = idtyId;
+		this.empoff = comp;
 	}
 
 	public int getOfferidentity() {
