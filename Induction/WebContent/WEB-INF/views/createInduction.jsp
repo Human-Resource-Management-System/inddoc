@@ -51,26 +51,7 @@
 <body>
     <div class="container">
         <h1>Create Induction</h1>
-
-        <form action="inductionsave" method="post">
-			<label for="IndcId">Induction ID:</label>
-        <select id="IndcId" name="IndcId" required>
-    <option value="same">Same</option>
-    <option value="next">Next</option>
-</select>
-
-  <label for="IndcEmofId">Employee Offers:</label>
-<select id="IndcEmofId" name="IndcEmofId" multiple required style="width: 400px;">
-    <% List<OfferDiffModel> offerDiffList = (List<OfferDiffModel>) request.getAttribute("diffmodel"); %>
-    <% if (offerDiffList != null && !offerDiffList.isEmpty()) { %>
-        <% for (OfferDiffModel offerDiff : offerDiffList) { %>
-            <option value="<%= offerDiff.getOfferId() %>">
-                <%= offerDiff.getOfferId() %> (       Status  <%= offerDiff.getStatus()%>)
-            </option>
-        <% } %>
-    <% } %>
-</select>
-
+        
             <%
                 // Create a SimpleDateFormat object with the desired date format
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -83,18 +64,20 @@
                 
                 int user = 123;
             %>
-          <label for="inductionDate">Induction Date:</label>
-			<input type="text" id="inductionDate" name="IndcDate" value="<%= formattedDate %>" readonly>
+		<h2>Induction Date: <%= formattedDate %></h2>
+		<h3>Induction Date: <%= user %></h3>
+        <form action="inductionsave" method="post">
 
-
-            <label for="authorizedId">Authorized ID:</label>
-			<input type="text" id="authorizedId" name="IndcProcessedAusrId" value="<%= user %>" required>
-
-            <label for="IndcStatus">Status:</label>
-              <select id="IndcStatus" name="IndcStatus" required>
-   			 <option value="PCMP">PCMP</option>
-    	    <option value="SUPD">SUPD</option>
-   			 <option value="CMPD">CMPD</option>
+  <label for="IndcEmofId">Employee Offers:</label>
+<select id="IndcEmofId" name="IndcEmofId" multiple required size="8" style="width: 400px;">
+    <% List<OfferDiffModel> offerDiffList = (List<OfferDiffModel>) request.getAttribute("diffmodel"); %>
+    <% if (offerDiffList != null && !offerDiffList.isEmpty()) { %>
+        <% for (OfferDiffModel offerDiff : offerDiffList) { %>
+            <option value="<%= offerDiff.getOfferId() %>">
+                <%= offerDiff.getOfferId() %> (       Status  <%= offerDiff.getStatus()%>)
+            </option>
+        <% } %>
+    <% } %>
 </select>
             <input type="submit" value="Save">
         </form>

@@ -22,14 +22,8 @@ public class EmploymentInductionService implements EmploymentInductionServiceInt
 
 	@Override
 	public Integer getid() {
-		return idao.getIndex();// to get the last recently conducted index of induction id
-	}
-
-	@Override
-	public Integer getidNext() {
-
 		int i = idao.getIndex();// to get the last recently conducted index of induction id
-		return i + 1;// for next index
+		return i;// for next index
 	}
 
 	@Override

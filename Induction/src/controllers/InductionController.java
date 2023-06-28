@@ -35,17 +35,19 @@ public class InductionController {
 	private final EmploymentInductionServiceInterface indServ;
 	private final EmploymentInductionDocument document;
 	private final InductionDAO idao;
+	private final OfferDiffModel offerDiff;
 	private final Induction induction;
 
 	@Autowired
 	public InductionController(EmploymentInductionDocumentServiceInterface docServ,
 			EmploymentInductionServiceInterface indServ, EmploymentInductionDocument document, InductionDAO idao,
-			Induction induction) {
+			Induction induction, OfferDiffModel offerDiff) {
 		this.docServ = docServ;
 		this.indServ = indServ;
 		this.document = document;
 		this.idao = idao;
 		this.induction = induction;
+		this.offerDiff = offerDiff;
 	}
 
 	private static final Logger LOGGER = Logger.getLogger(InductionController.class);
@@ -80,17 +82,17 @@ public class InductionController {
 	public String saveInduction(@ModelAttribute SaveInductioninput request, Model model) {
 		List<Induction> inductions = new ArrayList<>(); // Create the Induction objects
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
+		induction.setIndcId(indServ.getid());
 		for (Integer indcEmofId : request.getIndcEmofId()) {
-			if (request.getIndcId().equals("same")) {
-				induction.setIndcId(indServ.getid());// goes to the getid method in EmploymentInductionService class
-			} else {
-				induction.setIndcId(indServ.getidNext());// goes to the getidNext method in EmploymentInductionService
-															// class
-			}
+			// goes to the getidNext method in EmploymentInductionService
 			induction.setIndcEmofId(indcEmofId);
 			induction.setIndcProcessedAusrId(request.getIndcProcessedAusrId());
-			induction.setIndcStatus(request.getIndcStatus());
+			String status = "Submitted";
+			if (status.equals(offerDiff.getStatus())) {
+				induction.setIndcStatus("PCMP");
+			} else {
+				induction.setIndcStatus("PEND");
+			}
 			try {
 				Date date = dateFormat.parse(request.getIndcDate());
 				induction.setIndcDate(new java.sql.Date(date.getTime()));
