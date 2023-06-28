@@ -11,8 +11,13 @@ import models.EmploymentInductionDocumentViewModel;
 
 @Service
 public class EmploymentInductionDocumentService implements EmploymentInductionDocumentServiceInterface {
-	@Autowired
+
 	private EmploymentInductionDocumentDAO docDAO;
+
+	@Autowired
+	EmploymentInductionDocumentService(EmploymentInductionDocumentDAO docDAO) {
+		this.docDAO = docDAO;
+	}
 
 	public void addEmploymentInductionDocument(EmploymentInductionDocument document) {
 		docDAO.addEmploymentInductionDocument(document);// moves to the DAO class to add the documents

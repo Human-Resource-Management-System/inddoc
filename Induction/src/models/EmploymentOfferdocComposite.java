@@ -9,16 +9,16 @@ import javax.persistence.Embeddable;
 public class EmploymentOfferdocComposite implements Serializable {
 
 	@Column(name = "eofd_id", insertable = false, updatable = false)
-	private int offerid;
+	private Integer offerid;
 
-	@Column(name = "eofd_docindex")
+	@Column(name = "eofd_docindex", insertable = false, updatable = false)
 	private int documentIndex;
 
-	public int getOfferid() {
+	public Integer getOfferid() {
 		return offerid;
 	}
 
-	public void setOfferid(int offerid) {
+	public void setOfferid(Integer offerid) {
 		this.offerid = offerid;
 	}
 

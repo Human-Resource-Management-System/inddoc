@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.List" %>
 <%@ page import="models.HrmsEmploymentOffer" %>
+<%@ page import="models.OfferDiffModel" %>
+
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Date" %>
 
@@ -57,15 +59,17 @@
     <option value="next">Next</option>
 </select>
 
-            <label for="IndcEmofId">Employee Offers:</label>
-          <select id="IndcEmofId" name="IndcEmofId" multiple required>
-                <% List<Integer> employmentOffers = (List<Integer>) request.getAttribute("employmentOffers"); %>
-                <% if (employmentOffers != null && !employmentOffers.isEmpty()) { %>
-                    <% for (Integer offer : employmentOffers) { %>
-                        <option value="<%= offer %>"><%= offer %></option>
-                    <% } %>
-                <% } %>
-            </select>
+  <label for="IndcEmofId">Employee Offers:</label>
+<select id="IndcEmofId" name="IndcEmofId" multiple required style="width: 400px;">
+    <% List<OfferDiffModel> offerDiffList = (List<OfferDiffModel>) request.getAttribute("diffmodel"); %>
+    <% if (offerDiffList != null && !offerDiffList.isEmpty()) { %>
+        <% for (OfferDiffModel offerDiff : offerDiffList) { %>
+            <option value="<%= offerDiff.getOfferId() %>">
+                <%= offerDiff.getOfferId() %> (       Status  <%= offerDiff.getStatus()%>)
+            </option>
+        <% } %>
+    <% } %>
+</select>
 
             <%
                 // Create a SimpleDateFormat object with the desired date format

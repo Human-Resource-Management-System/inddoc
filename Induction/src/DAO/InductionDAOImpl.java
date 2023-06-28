@@ -1,6 +1,8 @@
 package DAO;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -63,6 +65,50 @@ public class InductionDAOImpl implements InductionDAO {
 		TypedQuery<Integer> typedQuery = entityManager.createQuery(query, Integer.class);
 		Integer maxId = typedQuery.getSingleResult();
 		return maxId != null ? maxId + 1 : 1;
+	}
+
+	@Override
+	public Map<Integer, Integer> getEmployeeOfferedIdMaxMap(List<Integer> hd) {
+		Map<Integer, Integer> maxMap = new HashMap<>();
+		for (Integer id : hd) {
+			int count = getCountOfOfferIdentity(id);
+			maxMap.put(id, count);
+		}
+		return maxMap;
+	}
+
+	@Override
+	public int getCountOfOfferIdentity(int id) {
+		String query = "SELECT COUNT(e.offeridentity) FROM EmploymentOfferDocument e WHERE e.offerid = :id";
+
+		TypedQuery<Long> typedQuery = entityManager.createQuery(query, Long.class);
+		typedQuery.setParameter("id", id);
+
+		Long count = typedQuery.getSingleResult();
+
+		return count.intValue();
+	}
+
+	@Override
+	public Map<Integer, Integer> getEmploymentInductionDocCountMap(List<Integer> hd) {
+		Map<Integer, Integer> countMap = new HashMap<>();
+		for (Integer id : hd) {
+			int count = getEmploymentInductionDocCount(id);
+			countMap.put(id, count);
+		}
+		return countMap;
+	}
+
+	@Override
+	public int getEmploymentInductionDocCount(int id) {
+		String query = "SELECT COUNT(e.emplidty) FROM EmploymentInductionDocument e WHERE e.id = :id";
+
+		TypedQuery<Long> typedQuery = entityManager.createQuery(query, Long.class);
+		typedQuery.setParameter("id", id);
+
+		Long count = typedQuery.getSingleResult();
+
+		return count.intValue();
 	}
 
 }

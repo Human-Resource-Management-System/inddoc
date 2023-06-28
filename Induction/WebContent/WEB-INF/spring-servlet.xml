@@ -70,7 +70,10 @@
     <bean id="docServ" class="service.EmploymentInductionDocumentService" />
     <bean id="indServ" class="service.EmploymentInductionService" />
     <bean id="docDAO" class="DAO.EmploymentInductionDocDAOImpl" />
-        <bean id="document" class="models.EmploymentInductionDocument" />
+    <bean id="document" class="models.EmploymentInductionDocument" />
+    <bean id="OfferDiffModel" class="models.OfferDiffModel" />
+        
+        
 
     <!-- Enable transactional support for EntityManager -->
     <tx:annotation-driven transaction-manager="jpaTransactionManager" />

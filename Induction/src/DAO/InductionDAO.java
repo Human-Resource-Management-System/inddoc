@@ -1,6 +1,7 @@
 package DAO;
 
 import java.util.List;
+import java.util.Map;
 
 import models.Induction;
 
@@ -16,5 +17,13 @@ public interface InductionDAO {
 	void updateEmploymentOfferStatus(int offerId, String status);
 
 	Integer getIndex();
+
+	Map<Integer, Integer> getEmployeeOfferedIdMaxMap(List<Integer> hd);
+
+	int getCountOfOfferIdentity(int id);
+
+	Map<Integer, Integer> getEmploymentInductionDocCountMap(List<Integer> hd);
+
+	int getEmploymentInductionDocCount(int id);
 
 }

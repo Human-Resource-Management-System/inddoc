@@ -1,26 +1,25 @@
 package models;
 
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "hrms_employmentofferdocuments")
+@IdClass(EmploymentOfferdocComposite.class)
 public class EmploymentOfferDocument {
 
-	@EmbeddedId
-	private EmploymentOfferdocComposite empoff;
+	@Id
+	@Column(name = "eofd_id")
+	private Integer offerid;
 
-	public EmploymentOfferdocComposite getEmpoff() {
-		return empoff;
-	}
-
-	public void setEmpoff(EmploymentOfferdocComposite empoff) {
-		this.empoff = empoff;
-	}
+	@Id
+	@Column(name = "eofd_docindex")
+	private int documentIndex;
 
 	@Column(name = "eofd_idty_id")
 	private int offeridentity;
@@ -33,9 +32,24 @@ public class EmploymentOfferDocument {
 	@JoinColumn(name = "eofd_idty_id", referencedColumnName = "idty_id", insertable = false, updatable = false)
 	private InductionDocumentTypes documentType;
 
-	public EmploymentOfferDocument(EmploymentOfferdocComposite comp, int idtyId) {
-		this.offeridentity = idtyId;
-		this.empoff = comp;
+	// public EmploymentOfferDocument(EmploymentOfferdocComposite comp, int idtyId) {
+	// this.offeridentity = idtyId;
+	// this.empoff = comp;
+	// }
+	public Integer getOfferId() {
+		return offerid;
+	}
+
+	public void setOfferId(Integer offerid) {
+		this.offerid = offerid;
+	}
+
+	public InductionDocumentTypes getDocumentType() {
+		return documentType;
+	}
+
+	public void setDocumentType(InductionDocumentTypes documentType) {
+		this.documentType = documentType;
 	}
 
 	public int getOfferidentity() {
@@ -52,14 +66,6 @@ public class EmploymentOfferDocument {
 
 	public void setEmploymentOffer(HrmsEmploymentOffer employmentOffer) {
 		this.employmentOffer = employmentOffer;
-	}
-
-	public InductionDocumentTypes getDocumentType() {
-		return documentType;
-	}
-
-	public void setDocumentType(InductionDocumentTypes documentType) {
-		this.documentType = documentType;
 	}
 
 }
