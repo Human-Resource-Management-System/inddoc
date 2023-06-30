@@ -8,9 +8,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import controllers.InductionController;
 import models.EmploymentInductionDocument;
 import models.EmploymentInductionDocumentViewModel;
 
@@ -19,12 +22,15 @@ public class EmploymentInductionDocDAOImpl implements EmploymentInductionDocumen
 
 	@PersistenceContext
 	private EntityManager entityManager;
+	private final Logger logger = LoggerFactory.getLogger(InductionController.class);
 
 	@Override
 	@Transactional
 	public void addEmploymentInductionDocument(EmploymentInductionDocument document) {
 		// to add Documents submitted at induction into the EmploymentInductionDocument table
+		logger.info("Adding induction document");
 		entityManager.persist(document);
+		logger.info("Induction document added successfully");
 	}
 
 	@Override
@@ -47,7 +53,7 @@ public class EmploymentInductionDocDAOImpl implements EmploymentInductionDocumen
 					emid_idty_id, documentData, verified);
 			documents.add(document);
 		}
-
+		logger.info("Retrieved {} induction documents", documents.size());
 		return documents;
 	}
 

@@ -3,6 +3,7 @@ package DAO;
 import java.util.List;
 import java.util.Map;
 
+import exceptions.CustomException;
 import models.Induction;
 
 public interface InductionDAO {
@@ -10,7 +11,7 @@ public interface InductionDAO {
 
 	public List<Induction> getInductionById(Integer id);
 
-	public void insertEmployee(Induction induction);
+	public void insertEmployee(Induction induction) throws CustomException;
 
 	public List<Integer> getAllEmploymentOffers();
 
@@ -25,5 +26,4 @@ public interface InductionDAO {
 	Map<Integer, Integer> getEmploymentInductionDocCountMap(List<Integer> hd);
 
 	int getEmploymentInductionDocCount(int id);
-
 }

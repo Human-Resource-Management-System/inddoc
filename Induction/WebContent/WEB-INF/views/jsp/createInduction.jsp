@@ -60,21 +60,23 @@
                 Date currentDate = new Date();
 
                 // Format the current date as a string
-                String formattedDate = dateFormat.format(currentDate);
+                String IndcDate = dateFormat.format(currentDate);
                 
-                int user = 123;
+                int IndcProcessedAusrId = 123;
             %>
-		<h2>Induction Date: <%= formattedDate %></h2>
-		<h3>Induction Date: <%= user %></h3>
+		<h2>Induction Date: <%= IndcDate %></h2>
+		<h3>Induction Date: <%= IndcProcessedAusrId %></h3>
+      
         <form action="inductionsave" method="post">
-
+<input type="hidden" id="IndcDate" name=IndcDate value="<%= IndcDate %>">
+<input type="hidden" id="IndcProcessedAusrId" name="IndcProcessedAusrId" value="<%= IndcProcessedAusrId %>">
   <label for="IndcEmofId">Employee Offers:</label>
 <select id="IndcEmofId" name="IndcEmofId" multiple required size="8" style="width: 400px;">
     <% List<OfferDiffModel> offerDiffList = (List<OfferDiffModel>) request.getAttribute("diffmodel"); %>
     <% if (offerDiffList != null && !offerDiffList.isEmpty()) { %>
         <% for (OfferDiffModel offerDiff : offerDiffList) { %>
-            <option value="<%= offerDiff.getOfferId() %>">
-                <%= offerDiff.getOfferId() %> (       Status  <%= offerDiff.getStatus()%>)
+            <option value="<%= offerDiff.getOfferId() %>" data-status="<%= offerDiff.getStatus() %>" >
+                <%= offerDiff.getOfferId() %> ( Status :  <%= offerDiff.getStatus()%>)
             </option>
         <% } %>
     <% } %>

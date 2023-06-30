@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import DAO.InductionDAO;
@@ -13,6 +15,7 @@ public class EmploymentInductionService implements EmploymentInductionServiceInt
 
 	private InductionDAO idao;// injecting DAO class object
 	private OfferDiffModel offerDiff;
+	private static final Logger logger = LoggerFactory.getLogger(EmploymentInductionService.class);
 
 	@Autowired
 	EmploymentInductionService(InductionDAO idao, OfferDiffModel offerDiff) {
@@ -23,6 +26,7 @@ public class EmploymentInductionService implements EmploymentInductionServiceInt
 	@Override
 	public Integer getid() {
 		int i = idao.getIndex();// to get the last recently conducted index of induction id
+		logger.info("-------Retrieved the last recently conducted index of induction id: {}-----------", i);
 		return i;// for next index
 	}
 
@@ -48,11 +52,30 @@ public class EmploymentInductionService implements EmploymentInductionServiceInt
 			} else {
 				offerDiff.setStatus(diff + " documents pending");
 			}
-			System.out.println(diff + " the difference " + id);
+			logger.debug("----------Calculated offer difference for id {}: {}------------", id, offerDiff.getStatus());
 			// setting the list of objects into offerDiffList list to pass the list of objects to the controller
 			offerDiffList.add(offerDiff);
 		}
+		logger.info(
+				"------------Retrieved all employment offers with offer Document Submition Status differences----------");
 		return offerDiffList;
+	}
+
+	@Override
+	public String getStatusById(Integer indcEmofId) {
+		String Status = "";
+		int cntEmpOff = idao.getCountOfOfferIdentity(indcEmofId);
+		int cntIndDoc = idao.getEmploymentInductionDocCount(indcEmofId);
+		int diff = cntEmpOff - cntIndDoc;
+		if (diff == 0) {
+			Status = "Submitted";
+		} else if (diff == cntEmpOff) {
+			Status = "No document submitted";
+		} else {
+			Status = " documents pending";
+		}
+		logger.debug("----------Calculated offer difference for id {}: {}------------", indcEmofId, Status);
+		return Status;
 	}
 
 }

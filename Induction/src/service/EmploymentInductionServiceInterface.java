@@ -10,4 +10,6 @@ public interface EmploymentInductionServiceInterface {
 
 	List<OfferDiffModel> getAllEmploymentOffers();
 
+	String getStatusById(Integer indcEmofId);
+
 }
