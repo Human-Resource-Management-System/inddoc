@@ -140,6 +140,7 @@ public class InductionController {
 
 	@GetMapping("/getform") // previews the form to fill and upload document
 	public String getInductionform(Model model) {
+
 		// moves to the EmploymentInductionDocumentService class to get all document
 		List<EmploymentInductionDocumentViewModel> doc = docServ.getAllDocuments();
 		model.addAttribute("doc", doc);

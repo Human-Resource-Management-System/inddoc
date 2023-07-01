@@ -3,17 +3,17 @@ package models;
 import java.util.List;
 
 public class SaveInductioninput {
-	private String IndcId;
+	private Integer IndcId;
 	private List<Integer> IndcEmofId;
 	private String IndcDate;
 	private int IndcProcessedAusrId;
 	private String IndcStatus;
 
-	public String getIndcId() {
+	public Integer getIndcId() {
 		return IndcId;
 	}
 
-	public void setIndcId(String indcId) {
+	public void setIndcId(Integer indcId) {
 		IndcId = indcId;
 	}
 

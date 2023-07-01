@@ -13,6 +13,10 @@ public class EmploymentInductionDocumentViewModel {
 		this.verified = verified;
 	}
 
+	public EmploymentInductionDocumentViewModel() {
+
+	}
+
 	public int getEmplid() {
 		return emplid;
 	}
